@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooperative SDH - Gestion Immobilière</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🏘️ COOPERATIVE SDH</h1>
+                <p>Gestion Immobilière - Cité Notre-Dame</p>
+                <button id="logoutBtn" class="btn btn-danger" style="display:none;">Déconnexion</button>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="navbar">
+            <button class="nav-btn active" data-page="login">Connexion</button>
+            <button class="nav-btn" data-page="dashboard" style="display:none;">📊 Tableau de bord</button>
+            <button class="nav-btn" data-page="members" style="display:none;">👥 Adhérents</button>
+            <button class="nav-btn" data-page="payments" style="display:none;">💰 Versements</button>
+            <button class="nav-btn" data-page="decharge" style="display:none;">📄 Décharges</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Login Page -->
+            <div id="login" class="page active">
+                <div class="card">
+                    <h2>Connexion / Inscription</h2>
+                    
+                    <div class="demo-banner">
+                        <button id="demoBtnLogin" class="btn btn-success" style="width:100%; margin-bottom:15px;">
+                            🎯 Tester avec DÉMO
+                        </button>
+                    </div>
+
+                    <div class="divider">ou</div>
+
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="email" placeholder="exemple@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Mot de passe</label>
+                            <input type="password" id="password" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;">Se connecter</button>
+                    </form>
+
+                    <div class="divider">ou</div>
+
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label>Nom complet</label>
+                            <input type="text" id="fullName" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nom de la coopérative</label>
+                            <input type="text" id="cooperativeName" placeholder="Ex: Cité Notre-Dame" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="registerEmail" placeholder="exemple@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Mot de passe</label>
+                            <input type="password" id="registerPassword" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-success" style="width:100%;">S'inscrire</button>
+                    </form>
+
+                    <div class="demo-info">
+                        <p><strong>Compte DÉMO :</strong></p>
+                        <p>Email: demo@cooperative-sdh.com</p>
+                        <p>Mot de passe: 123456</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Page -->
+            <div id="dashboard" class="page">
+                <div class="grid-2">
+                    <div class="card stats-card">
+                        <h3>👥 Adhérents</h3>
+                        <p class="stat-number" id="statMembers">0</p>
+                    </div>
+                    <div class="card stats-card">
+                        <h3>💰 Total versé</h3>
+                        <p class="stat-number" id="statTotal">0 F</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>📊 Tableau de bord</h2>
+                    <p>Bienvenue dans Cooperative SDH!</p>
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="showPage('members')">➕ Ajouter adhérent</button>
+                        <button class="btn btn-success" onclick="showPage('payments')">➕ Enregistrer versement</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Members Page -->
+            <div id="members" class="page">
+                <div class="card">
+                    <h2>👥 Gestion des Adhérents</h2>
+                    
+                    <div class="form-group">
+                        <input type="text" id="searchMembers" placeholder="🔍 Rechercher un adhérent..." class="search-box">
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="toggleForm('memberForm')">➕ Ajouter adhérent</button>
+                    </div>
+
+                    <!-- Add Member Form -->
+                    <div id="memberForm" class="form-container" style="display:none;">
+                        <h3>Ajouter un adhérent</h3>
+                        <form id="addMemberForm">
+                            <div class="form-group">
+                                <label>Prénom</label>
+                                <input type="text" class="input-firstname" placeholder="Prénom" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Nom</label>
+                                <input type="text" class="input-lastname" placeholder="Nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Date de naissance</label>
+                                <input type="date" class="input-dob">
+                            </div>
+                            <div class="form-group">
+                                <label>Lieu de naissance</label>
+                                <input type="text" class="input-pob" placeholder="Lieu">
+                            </div>
+                            <div class="form-group">
+                                <label>Nationalité</label>
+                                <input type="text" class="input-nationality" placeholder="Nationalité">
+                            </div>
+                            <div class="form-group">
+                                <label>N° CNI</label>
+                                <input type="text" class="input-cni" placeholder="N° CNI" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Adresse</label>
+                                <input type="text" class="input-address" placeholder="Adresse" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Profession</label>
+                                <input type="text" class="input-profession" placeholder="Profession">
+                            </div>
+                            <div class="form-group">
+                                <label>Téléphone</label>
+                                <input type="tel" class="input-phone" placeholder="Téléphone">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="input-email" placeholder="Email">
+                            </div>
+                            <button type="submit" class="btn btn-success">Ajouter adhérent</button>
+                            <button type="button" class="btn btn-secondary" onclick="toggleForm('memberForm')">Annuler</button>
+                        </form>
+                    </div>
+
+                    <!-- Members List -->
+                    <div class="table-responsive">
+                        <table id="membersTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>CNI</th>
+                                    <th>Téléphone</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="membersBody">
+                                <tr><td colspan="5" class="text-center">Aucun adhérent</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payments Page -->
+            <div id="payments" class="page">
+                <div class="card">
+                    <h2>💰 Gestion des Versements</h2>
+                    
+                    <!-- Add Payment Form -->
+                    <div class="form-container">
+                        <h3>Enregistrer un versement</h3>
+                        <form id="addPaymentForm">
+                            <div class="form-group">
+                                <label>Sélectionner adhérent</label>
+                                <select id="memberSelect" required>
+                                    <option value="">-- Choisir un adhérent --</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Montant (F CFA)</label>
+                                <input type="number" id="paymentAmount" placeholder="Ex: 50000" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Date du versement</label>
+                                <input type="date" id="paymentDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Motif</label>
+                                <select id="paymentMotif" required>
+                                    <option value="Versement adhésion">Versement adhésion</option>
+                                    <option value="Versement acompte">Versement acompte</option>
+                                    <option value="Versement mois 1">Versement mois 1</option>
+                                    <option value="Versement mois 2">Versement mois 2</option>
+                                    <option value="Versement mois 3">Versement mois 3</option>
+                                    <option value="Fin de versement">Fin de versement</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Signataire</label>
+                                <select id="signataire" required>
+                                    <option value="Serge Olivier DIATTA">Serge Olivier DIATTA</option>
+                                    <option value="Benoît Célestin DIATTA">Benoît Célestin DIATTA</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success">✓ Enregistrer versement</button>
+                            <button type="button" class="btn btn-primary" onclick="showPage('decharge')">📄 Générer décharge PDF</button>
+                        </form>
+                    </div>
+
+                    <!-- Payments List -->
+                    <h3 style="margin-top:30px;">Historique des versements</h3>
+                    <div class="table-responsive">
+                        <table id="paymentsTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Montant</th>
+                                    <th>Date</th>
+                                    <th>Motif</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="paymentsBody">
+                                <tr><td colspan="5" class="text-center">Aucun versement</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decharge Page -->
+            <div id="decharge" class="page">
+                <div class="card">
+                    <h2>📄 Générer Décharge PDF</h2>
+                    
+                    <form id="dechargeForm">
+                        <div class="form-group">
+                            <label>Sélectionner adhérent</label>
+                            <select id="dechargeMemeber" required>
+                                <option value="">-- Choisir un adhérent --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Montant (F CFA)</label>
+                            <input type="number" id="dechargeAmount" placeholder="Ex: 50000" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date du versement</label>
+                            <input type="date" id="dechargeDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Motif</label>
+                            <select id="dechargeMotif" required>
+                                <option value="Versement adhésion">Versement adhésion</option>
+                                <option value="Versement acompte">Versement acompte</option>
+                                <option value="Versement mois 1">Versement mois 1</option>
+                                <option value="Versement mois 2">Versement mois 2</option>
+                                <option value="Versement mois 3">Versement mois 3</option>
+                                <option value="Fin de versement">Fin de versement</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Signataire</label>
+                            <select id="dechargeSignataire" required>
+                                <option value="Serge Olivier DIATTA">Serge Olivier DIATTA</option>
+                                <option value="Benoît Célestin DIATTA">Benoît Célestin DIATTA</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="previewDecharge()">👁️ Aperçu</button>
+                        <button type="button" class="btn btn-success" onclick="generatePDF()">📥 Télécharger PDF</button>
+                    </form>
+
+                    <!-- Preview -->
+                    <div id="dechargePreview" class="decharge-preview" style="display:none; margin-top:30px;">
+                        <div id="dechargeContent" class="decharge-content"></div>
+                        <button class="btn btn-primary" onclick="printDecharge()">🖨️ Imprimer</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Cooperative SDH - Gestion Immobilière | <a href="https://github.com/cooperativesdh/cooperative-sdh-app" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
